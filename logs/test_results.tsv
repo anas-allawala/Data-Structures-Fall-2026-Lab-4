@@ -1,0 +1,13 @@
+task	task_attempt	case_id	result	marks_awarded	marks_total	first_time_passed_this_attempt	ever_passed_before_this_attempt	previous_result
+task2	1	t2_add_edge	BUSTED	0	5	0	0	NONE
+task2	1	t2_remove_edge	BUSTED	0	5	0	0	NONE
+task2	1	t2_has_edge	BUSTED	0	5	0	0	NONE
+task2	1	t2_solve_equation	BUSTED	0	10	0	0	NONE
+task1	1	t1_add_edge	SECURED	5	5	1	0	NONE
+task1	1	t1_remove_edge	SECURED	5	5	1	0	NONE
+task1	1	t1_has_edge	SECURED	5	5	1	0	NONE
+task1	1	t1_degree	SECURED	10	10	1	0	NONE
+task2	1	t2_add_edge	SECURED	5	5	1	0	BUSTED
+task2	1	t2_remove_edge	SECURED	5	5	1	0	BUSTED
+task2	1	t2_has_edge	SECURED	5	5	1	0	BUSTED
+task2	1	t2_solve_equation	SECURED	10	10	1	0	BUSTED

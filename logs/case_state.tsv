@@ -1,0 +1,9 @@
+task	case_id	attempts_seen	pass_count	fail_count	last_result
+task2	t2_add_edge	2	1	1	SECURED
+task2	t2_remove_edge	2	1	1	SECURED
+task2	t2_has_edge	2	1	1	SECURED
+task2	t2_solve_equation	2	1	1	SECURED
+task1	t1_add_edge	1	1	0	SECURED
+task1	t1_remove_edge	1	1	0	SECURED
+task1	t1_has_edge	1	1	0	SECURED
+task1	t1_degree	1	1	0	SECURED
