@@ -1,6 +1,0 @@
-2026-11-11 18:11:39	task1	g++ -std=c++17 -w code/Graph.cpp tests/grader_utils.cpp tests/test_task1.cpp -Iinclude -Itests -o run_task1
-2026-11-11 18:11:48	task2	g++ -std=c++17 -w code/Graph.cpp tests/grader_utils.cpp tests/test_task2.cpp -Iinclude -Itests -o run_task2
-2026-11-11 18:12:00	task3	g++ -std=c++17 -w code/TrieGraph.cpp tests/grader_utils.cpp tests/test_task3.cpp -Iinclude -Itests -o run_task3
-2026-11-11 18:12:19	task1	g++ -std=c++17 -w code/Graph.cpp tests/grader_utils.cpp tests/test_task1.cpp -Iinclude -Itests -o run_task1
-2026-11-11 18:12:26	task2	g++ -std=c++17 -w code/Graph.cpp tests/grader_utils.cpp tests/test_task2.cpp -Iinclude -Itests -o run_task2
-2026-11-11 18:12:34	task3	g++ -std=c++17 -w code/TrieGraph.cpp tests/grader_utils.cpp tests/test_task3.cpp -Iinclude -Itests -o run_task3
