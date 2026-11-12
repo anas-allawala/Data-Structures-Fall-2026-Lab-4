@@ -55,7 +55,18 @@ bool Adjacency_List::has_edge(string a, string b)
 
 int Adjacency_List::solve_equation(string key)
 {
-    // NEED TO PERFORM POST ORDER DFS TO SOLVE THIS.
+    // NEED TO PERFORM POST ORDER SEARCH TO SOLVE THIS.
+    // FOR EACH KEY THAT IS AN OPERAND, GET THE INTEGER VALUE OF ITS TWO CHILDREN
+    // AND THEN PERFORM THE RESPECTIVE OPERATION ON IT AND RETURN THE VALUE OF THAT OPERATION
+    /*
+         +
+        / \
+       /   \
+      4     5
+
+      a solve equation("+") in the above tree should get the values of the children 4 and 5
+      and then add them to make 9 and return 9. 
+    */
 
     // if (key == "+")
     // {
@@ -68,6 +79,12 @@ int Adjacency_List::solve_equation(string key)
     // }
     // else if (key == "/")
     // {
+    // }
+    // else 
+    // {
+    //     Base Case
+    //     If key is not an operand, ie not +, -, * or /, then it must be a number and return its integer value
+    //     return stoi(key);
     // }
     
     return -1;

@@ -282,29 +282,6 @@ For this specific task, you must write your implementation in the \texttt{Graph.
 \end{warningbox}
 
 % \newpage
-\subsection{Relevant DMA Concepts (Cheatsheet)}
-
-Since pointers and Dynamic Memory Allocation (DMA) can sometimes be a nightmare (segmentation fault core dumped yaad hai?), here is a quick refresher to help you set up and clean up your Adjacency Matrix. Just remember, whatever you \texttt{new}, you must \texttt{delete}!
-
-\vspace{0.3cm}
-\begingroup
-\rowcolors{2}{white}{cheatRow}
-\noindent
-\begin{tabularx}{\textwidth}{>{\ttfamily\bfseries}l X}
-\rowcolor{cheatHeader}
-\textcolor{white}{\textbf{DMA Operation}} & \textcolor{white}{\textbf{Purpose / Behavior}} \\
-new Type & Allocates memory for a single variable of \texttt{Type} and returns a pointer to it. \\
-new Type[n] & Allocates a contiguous array of \texttt{n} elements of \texttt{Type} and returns a pointer to the first element. \\
-delete ptr & Frees the memory for a single dynamically allocated object pointed to by \texttt{ptr}. \\
-delete[] ptr & Frees the memory for a dynamically allocated array. (Missing the \texttt{[]} causes memory leaks!) \\
-Type** matrix & Declares a pointer-to-a-pointer, commonly used for 2D dynamic arrays (like your Adjacency Matrix). \\
-Allocating 2D Array & \texttt{matrix = new int*[rows];} \newline \texttt{for(int i = 0; i < rows; i++) matrix[i] = new int[cols];} \\
-nullptr & Always set your pointers to \texttt{nullptr} after deleting them to avoid dangling pointers. \\
-\noalign{\hrule height 2pt}
-\end{tabularx}
-\endgroup
-\vspace{0.5cm}
-
 
 \subsection{Methods To Implement}
 
@@ -335,6 +312,31 @@ nullptr & Always set your pointers to \texttt{nullptr} after deleting them to av
 \begin{methodbox}{int degree(int node)}
 \textbf{Description:} Should return the total number of edges a node has. No bounds checking required. "node" will always be a valid index for this function.
 \end{methodbox}
+
+\subsection{Relevant DMA Concepts (Cheatsheet)}
+
+Since pointers and Dynamic Memory Allocation (DMA) can sometimes be a nightmare (segmentation fault core dumped yaad hai?), here is a quick refresher to help you set up and clean up your Adjacency Matrix. Just remember, whatever you \texttt{new}, you must \texttt{delete}!
+
+\vspace{0.3cm}
+\begingroup
+\rowcolors{2}{white}{cheatRow}
+\noindent
+\begin{tabularx}{\textwidth}{>{\ttfamily\bfseries}l X}
+\rowcolor{cheatHeader}
+\textcolor{white}{\textbf{DMA Operation}} & \textcolor{white}{\textbf{Purpose / Behavior}} \\
+new Type & Allocates memory for a single variable of \texttt{Type} and returns a pointer to it. \\
+new Type[n] & Allocates a contiguous array of \texttt{n} elements of \texttt{Type} and returns a pointer to the first element. \\
+delete ptr & Frees the memory for a single dynamically allocated object pointed to by \texttt{ptr}. \\
+delete[] ptr & Frees the memory for a dynamically allocated array. (Missing the \texttt{[]} causes memory leaks!) \\
+Type** matrix & Declares a pointer-to-a-pointer, commonly used for 2D dynamic arrays (like your Adjacency Matrix). \\
+Allocating 2D Array & \texttt{matrix = new int*[rows];} \newline \texttt{for(int i = 0; i < rows; i++) matrix[i] = new int[cols];} \\
+nullptr & Always set your pointers to \texttt{nullptr} after deleting them to avoid dangling pointers. \\
+\noalign{\hrule height 2pt}
+\end{tabularx}
+\endgroup
+\vspace{0.5cm}
+
+
 
 \newpage
 
@@ -375,6 +377,55 @@ public:
 \begin{warningbox}{Important Note}
 The \code{Adjacency\_List} is used to represent \textbf{directed} graphs. For example, \code{"Sharah e Faisal"} can point to \code{"Malir Expressway"} but not necessarily the other way around.
 \end{warningbox}
+
+
+\subsection{Methods To Implement}
+
+\begin{methodbox}{void add\_edge(string a, string b)}
+\textbf{Description:} Adds string \code{b} to the vector corresponding to string \code{a} in the "list" map.
+\end{methodbox}
+
+\begin{methodbox}{void remove\_edge(string a, string b)}
+\textbf{Description:} Removes string \code{b} from the vector corresponding to string \code{a} in the "list" map. The string \code{b} may, or may not exist.
+\end{methodbox}
+
+\begin{methodbox}{bool has\_edge(string a, string b)}
+\textbf{Description:} Return true if string \code{b} exists in the vector corresponding to string \code{a} in the "list" map. Returns false if not.
+\end{methodbox}
+
+\begin{methodbox}{int solve\_equation(string key)}
+\textbf{Description:} Have you ever wondered how computers, and specifically calculators, know how to solve mathematical equations? Specifically how do calculators know PEMDAS/BODMAS or the order of operations and how is it that no matter how convoluted or long an equation is, a simple calculator can solve it? The answer is syntax trees.
+
+\vspace{1em}
+Calculators are able to convert mathematical equations into trees and then solve them recursively. For example the equation $2 \times 7 + 3$ will can be converted into a syntax tree like the one below: 
+
+\vspace{0.5em}
+\begin{center}
+    % Ensure this image exists in your LaTeX directory
+    \includegraphics[width=0.40\textwidth]{image_5c9f4c.jpeg}
+\end{center}
+\vspace{0.5em}
+
+Using your previously implemented functions like \code{add\_edge}, the test cases will add edges to your graph and then call \code{solve\_equation} on the root node of your graph.
+
+\vspace{0.5em}
+For example the equation $2 \times 7 + 3$ will be added to the graph in the following manner:
+\begin{itemize}
+    \item \code{graph.add\_edge("+", "*")}
+    \item \code{graph.add\_edge("+", "3")}
+    \item \code{graph.add\_edge("*", "2")}
+    \item \code{graph.add\_edge("*", "7")}
+\end{itemize}
+
+\vspace{0.5em}
+The test case will then call \code{graph.solve\_equation("+")}.
+\vspace{0.5em}
+
+Students are expected to perform a post-order Depth-First-Search traversal to solve the equation and return the correct value.
+\vspace{0.5em}
+
+\textit{Note:} For simplification, only the 4 main operands: \code{+}, \code{-}, \code{*} and \code{/} need to be supported. Also, students must use \code{std::stoi} to convert the \code{string} representation of integers back to integers.
+\end{methodbox}
 
 \newpage
 \subsection{Relevant Vector Functions (Cheatsheet)}
@@ -435,53 +486,6 @@ for (auto \&pair : map) & Loops through all elements. Use \texttt{pair.first} to
 \endgroup
 \vspace{0.5cm}
 
-\subsection{Methods To Implement}
-
-\begin{methodbox}{void add\_edge(string a, string b)}
-\textbf{Description:} Adds string \code{b} to the vector corresponding to string \code{a} in the "list" map.
-\end{methodbox}
-
-\begin{methodbox}{void remove\_edge(string a, string b)}
-\textbf{Description:} Removes string \code{b} from the vector corresponding to string \code{a} in the "list" map. The string \code{b} may, or may not exist.
-\end{methodbox}
-
-\begin{methodbox}{bool has\_edge(string a, string b)}
-\textbf{Description:} Return true if string \code{b} exists in the vector corresponding to string \code{a} in the "list" map. Returns false if not.
-\end{methodbox}
-
-\begin{methodbox}{int solve\_equation(string key)}
-\textbf{Description:} Have you ever wondered how computers, and specifically calculators, know how to solve mathematical equations? Specifically how do calculators know PEMDAS/BODMAS or the order of operations and how is it that no matter how convoluted or long an equation is, a simple calculator can solve it? The answer is syntax trees.
-
-\vspace{1em}
-Calculators are able to convert mathematical equations into trees and then solve them recursively. For example the equation $2 \times 7 + 3$ will can be converted into a syntax tree like the one below: 
-
-\vspace{0.5em}
-\begin{center}
-    % Ensure this image exists in your LaTeX directory
-    \includegraphics[width=0.40\textwidth]{image_5c9f4c.jpeg}
-\end{center}
-\vspace{0.5em}
-
-Using your previously implemented functions like \code{add\_edge}, the test cases will add edges to your graph and then call \code{solve\_equation} on the root node of your graph.
-
-\vspace{0.5em}
-For example the equation $2 \times 7 + 3$ will be added to the graph in the following manner:
-\begin{itemize}
-    \item \code{graph.add\_edge("+", "*")}
-    \item \code{graph.add\_edge("+", "3")}
-    \item \code{graph.add\_edge("*", "2")}
-    \item \code{graph.add\_edge("*", "7")}
-\end{itemize}
-
-\vspace{0.5em}
-The test case will then call \code{graph.solve\_equation("+")}.
-\vspace{0.5em}
-
-Students are expected to perform a post-order Depth-First-Search traversal to solve the equation and return the correct value.
-\vspace{0.5em}
-
-\textit{Note:} For simplification, only the 4 main operands: \code{+}, \code{-}, \code{*} and \code{/} need to be supported. Also, students must use \code{std::stoi} to convert the \code{string} representation of integers back to integers.
-\end{methodbox}
 
 \newpage
 
@@ -551,7 +555,7 @@ For this specific task, you must write your implementation in the \texttt{TrieGr
 \end{methodbox}
 
 \begin{methodbox}{vector<string> startsWith(string prefix)}
-\textbf{Description:} A prefix search that returns, in a vector, all words in the Trie that start with this prefix.
+\textbf{Description:} A prefix search that returns, in a vector, all words in the Trie that start with this prefix. For example, if the words inserted into the TrieGraph are "and", "ant", "dad" and "do", then a \code{startsWith("an")} search should return a vector like so: \code{\{"and", "ant"\}}.
 \end{methodbox}
 
 \newpage
