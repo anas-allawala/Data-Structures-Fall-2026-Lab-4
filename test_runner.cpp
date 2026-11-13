@@ -16,6 +16,7 @@
 
 using namespace std;
 
+// Helper to get time for compilation log
 static string nowTime() {
   time_t now = time(nullptr);
   char buffer[64];
@@ -23,6 +24,7 @@ static string nowTime() {
   return string(buffer);
 }
 
+// Helper to get a filesystem-safe time string for the error log file
 static string nowTimeFilename() {
   time_t now = time(nullptr);
   char buffer[64];
@@ -44,40 +46,49 @@ static int runTask(const string& task) {
   removeExe(exe);
 
   string compile;
+  string failed_file_msg;
 
-  // LAB 4 ISOLATED COMPILATION TARGETS
+  // Compile the correct source files based on the Lab 4 structure
   if (task == "task1") {
-    // Task 1: Adjacency Matrix
     compile =
-        "g++ -std=c++17 -w "
+        "g++ -std=c++17 "
         "code/Graph.cpp "
         "tests/grader_utils.cpp "
         "tests/test_task1.cpp "
-        "-Iinclude -Itests -o " + exe;
+        "-Iinclude -Itests "
+        "-o " +
+        exe;
+    failed_file_msg = "test_task1.cpp (or Graph.cpp)";
   } else if (task == "task2") {
-    // Task 2: Adjacency List
     compile =
-        "g++ -std=c++17 -w "
+        "g++ -std=c++17 "
         "code/Graph.cpp "
         "tests/grader_utils.cpp "
         "tests/test_task2.cpp "
-        "-Iinclude -Itests -o " + exe;
+        "-Iinclude -Itests "
+        "-o " +
+        exe;
+    failed_file_msg = "test_task2.cpp (or Graph.cpp)";
   } else if (task == "task3") {
-    // Task 3: Tries
     compile =
-        "g++ -std=c++17 -w "
+        "g++ -std=c++17 "
         "code/TrieGraph.cpp "
         "tests/grader_utils.cpp "
         "tests/test_task3.cpp "
-        "-Iinclude -Itests -o " + exe;
+        "-Iinclude -Itests "
+        "-o " +
+        exe;
+    failed_file_msg = "test_task3.cpp (or TrieGraph.cpp)";
   } else {
     cout << "Unknown task: " << task << endl;
     return 1;
   }
 
+  // Redirect stdout and stderr to a temporary file
   string temp_log = "logs/temp_compile_" + task + ".txt";
   string compile_cmd = compile + " > " + temp_log + " 2>&1";
 
+  // ---> LOG THIS COMPILATION ATTEMPT <---
   ofstream clog("logs/compile_attempts.tsv", ios::app);
   if (clog) {
     clog << nowTime() << "\t" << task << "\t" << compile << "\n";
@@ -87,6 +98,7 @@ static int runTask(const string& task) {
   cout << "Compiling " << task << "..." << endl;
   int c = runCommand(compile_cmd);
 
+  // Read and print the captured output to the terminal so the student sees it normally
   ifstream log_file(temp_log);
   if (log_file) {
     cout << log_file.rdbuf();
@@ -95,17 +107,28 @@ static int runTask(const string& task) {
 
   if (c != 0) {
     removeExe(exe);
+    
     string err_filename = "logs/compile_error_" + task + "_" + nowTimeFilename() + ".txt";
+    
+    // Copy the file contents safely instead of relying on OS-dependent rename()
     ifstream src(temp_log, ios::binary);
     ofstream dst(err_filename, ios::binary);
-    if (src && dst) dst << src.rdbuf();
+    
+    if (dst) {
+        dst << "Failed File: " << failed_file_msg << "\n"; // Inject the failed file line at the top
+    }
+    if (src && dst) {
+        dst << src.rdbuf();
+    }
     src.close();
     dst.close();
-    remove(temp_log.c_str()); 
 
-    cout << "\033[31mCompilation failed for " << task << ". Stale code cannot run.\033[0m" << endl;
+    remove(temp_log.c_str()); // Clean up temp file
+
+    cout << "Compilation failed for " << task << ". Stale code cannot run." << endl;
     return 1;
   } else {
+    // If compilation succeeds, just clean up the temporary log
     remove(temp_log.c_str());
   }
 
@@ -131,9 +154,7 @@ int main(int argc, char* argv[]) {
     vector<string> tasks = {"task1", "task2", "task3"};
     int failed = 0;
     for (const string& t : tasks) {
-      cout << "\n=======================================" << endl;
-      cout << "             " << t << "             " << endl;
-      cout << "=======================================" << endl;
+      cout << "\n========== " << t << " ==========" << endl;
       if (runTask(t) != 0) failed++;
     }
     return failed == 0 ? 0 : 1;
