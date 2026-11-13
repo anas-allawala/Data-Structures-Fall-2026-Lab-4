@@ -1,7 +1,6 @@
 #include "../include/Graph.h"
 #include <iostream>
 #include <vector>
-#include <algorithm>
 using namespace std;
 
 Adjacency_Matrix::Adjacency_Matrix(int n) : numVertices(n)
