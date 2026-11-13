@@ -115,7 +115,7 @@
 \begin{tabular}{@{}lp{0.8\textwidth}@{}}
     \textbf{Duration:}  & For all intents and purposes, 3 hours \\
     \textbf{Language:}  & C++ \\
-    \textbf{Focus:}     & Graphs, Adjacency Matrices (Upper Triangular), Adjacency Lists (Directed), Depth-First Search (DFS), Expression Trees, Tries
+    \textbf{Focus:}     & Graphs, Adjacency Matrices (Upper-Right Triangular), Adjacency Lists (Directed), Depth-First Search (DFS), Expression Trees, Tries
 \end{tabular}
 \end{infobox}
 
@@ -132,9 +132,10 @@
     drop shadow=gray!30
 ]
 \begin{itemize}[leftmargin=1.5em, itemsep=4pt, parsep=0pt, topsep=2pt]
-    \item Just please read the manual. I reiterate: PLEASE read the manual. It might feel like a long one and a chore to read, but it contains all help you may need.
-    \item \textbf{Skeleton code is provided.} Fill in the function bodies; do not rename files, classes, or members. YOU MUST ONLY WRITE CODE IN THE SRC/CODE FOLDER AND NOT ANYWHERE ELSE.
-    % \item \textbf{Tasks are sequential and are required to be done in chronological order.}
+    \item Copy your Lab04 folder from the Student Submissons folder (Use Ctrl-C and NOT Ctrl-X) and paste into the C:\textbackslash MinGW Folder or as directed by the TAs. 
+    \item Open the C:\textbackslash MinWG\textbackslash Lab04 inside VS Code. Only then will your test cases run properly.
+    \item \textbf{Skeleton code is provided.} Fill in the function bodies; do not rename files, classes, or members. YOU MUST ONLY WRITE CODE IN THE /CODE FOLDER AND NOT ANYWHERE ELSE.
+    \item \textbf{Functions are sequential and are required to be done in chronological order}
     \item Signatures and output format must match exactly.
     \item Memory leaks or out-of-bounds array access will result in mark deductions.
 \end{itemize}
@@ -239,12 +240,14 @@ Please follow these instructions carefully to submit your lab. Failure to adhere
 % SECTION 4: GENERAL INFO
 % ==========================================
 \section{General Information}
-Welcome to the Graphs and Tries Laboratory Assessment. In this lab, you will explore how to organize and interlink connected data so that graph traversal and string searching operations are as fast as possible. First, you will implement graph structures in computer memory using Adjacency Matrices and Adjacency Lists. Finally, you will implement prefix tries for highly efficient string and dictionary processing.
+Welcome to Lab-4. In this lab, you will explore how to organize and interlink connected data so that graph traversal and string searching operations are as fast as possible. First, you will implement graph structures in computer memory using Adjacency Matrices and Adjacency Lists. Finally, you will implement prefix tries for highly efficient string and dictionary processing.
 
 \vspace{1em}
 \noindent\rule{\textwidth}{0.4pt}
 \vspace{1em}
 
+
+\newpage
 % ==========================================
 % SECTION 5: TASK 1 (MATRIX)
 % ==========================================
@@ -310,7 +313,7 @@ For this specific task, you must write your implementation in the \texttt{Graph.
 \end{methodbox}
 
 \begin{methodbox}{int degree(int node)}
-\textbf{Description:} Should return the total number of edges a node has. No bounds checking required. "node" will always be a valid index for this function.
+\textbf{Description:} Given an arbitrary index, you are responsible for checking for the validity of the node and then returning the total number of edges that node has.
 \end{methodbox}
 
 \subsection{Relevant DMA Concepts (Cheatsheet)}
@@ -424,7 +427,7 @@ The test case will then call \code{graph.solve\_equation("+")}.
 Students are expected to perform a post-order Depth-First-Search traversal to solve the equation and return the correct value.
 \vspace{0.5em}
 
-\textit{Note:} For simplification, only the 4 main operands: \code{+}, \code{-}, \code{*} and \code{/} need to be supported. Also, students must use \code{std::stoi} to convert the \code{string} representation of integers back to integers.
+\textit{Note:} For simplification, only the 4 main operands: \code{+}, \code{-}, \code{*} and \code{/} need to be supported. Also, students may use \code{std::stoi} to convert the \code{string} representation of integers back to integers.
 \end{methodbox}
 
 \newpage
@@ -500,9 +503,11 @@ You will also implement a class called \code{TrieGraph} that has a root node of 
 \vspace{0.5em}
 \begin{center}
     % Ensure this image exists in your LaTeX directory
-    \includegraphics[width=0.50\textwidth]{trie data structure img.jpeg}
+    \includegraphics[width=0.80\textwidth]{trie data structure img.jpeg}
 \end{center}
 \vspace{0.5em}
+
+\newpage
 
 \subsection{Class Declaration}
 \begin{lstlisting}
@@ -564,9 +569,5 @@ For this specific task, you must write your implementation in the \texttt{TrieGr
 % SECTION 8: FIN.
 % ==========================================
 \section{Fin.}
-
-Congrats on making it to the end of the lab (assuming your scrolling of the manual is directly proportional to the tasks you were able to solve). Unironically, for all intents and purposes, any and all messages within this lab were not meant to be ragebait (though them being perceived as such is something out of my control). 
-
-Best of luck!
 
 \end{document}
